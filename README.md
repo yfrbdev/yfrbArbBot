@@ -4,21 +4,9 @@
 
 setup your Arbitrage bot 
 
-run npm install -g truffle
-
 run npm install 
 
-add your wallet informations to the .env file 
-
-truffle console  --network kovan
-
-migrate --reset
-
-or 
-
-truffle console  --network mainnet
-
-migrate --reset
+Add your wallet informations to the .env file 
 
 retrieve your smart contract address after the deployment 
 
