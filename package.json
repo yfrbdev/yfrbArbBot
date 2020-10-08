@@ -1,0 +1,39 @@
+{
+  "name": "yfrbArbBot",
+  "version": "1.0.0",
+  "description": "YFRB Arbitrage Bot",
+  "main": "index.js",
+  "repository": "https://github.com/yfrbdev/yfrbArbBot",
+  "author": "yfrbdev",
+  "license": "MIT",
+  "scripts": {
+    "start": "node arbBot.js -n kovan",
+    "start-mainnet": "node arbBot.js -n mainnet"
+  },
+  "dependencies": {
+    "@uniswap/sdk": "^2.0.5",
+    "axios": "^0.20.0",
+    "body-parse": "^0.1.0",
+    "colors": "^1.4.0",
+    "commander": "^6.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ethers": "^5.0.14",
+    "fs": "^0.0.1-security",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.1",
+    "node-ll": "^1.1.0",
+    "path": "^0.12.7",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "web3": "^1.3.0"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^3.0.0",
+    "@truffle/hdwallet-provider": "^1.0.36",
+    "truffle": "^5.1.32"
+  },
+  "engines": {
+    "node": "12.x"
+  }
+}
