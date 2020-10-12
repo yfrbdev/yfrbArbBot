@@ -10,10 +10,8 @@ Add your wallet informations to the .env file
 
 retrieve your smart contract address after the deployment 
 
-choose how much you wish to trade in LOAN_AMTOUNT_DAI 
+choose how much you wish to trade in LOAN_AMOUNT
 
 fund your smart contract with dai
 
-run node arb2.js
-
-Make milllions of DAI
+run node arbBot.js
