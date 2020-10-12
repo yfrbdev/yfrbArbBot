@@ -7,7 +7,7 @@
   "author": "yfrbdev",
   "license": "MIT",
   "scripts": {
-    "start": "node arbBot.js -n kovan -t DAI",
+    "start": "node arbBot.js -n mainnet -t DAI",
     "start-mainnet": "node arbBot.js -n mainnet -t DAI",
     "start-dai": "node arbBot.js -n mainnet -t DAI",
     "start-usdt": "node arbBot.js -n mainnet -t USDT",
