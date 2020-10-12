@@ -35,12 +35,11 @@ program
   // .option('-a, --address <ETHAddress>', 'Ethereum Address', process.env.DEFAULT_ACCOUNT_TESTNET)
 program.parse(process.argv);
 
-
 var tokensymbol = program.token;
 
   switch (program.token) {
     case 'DAI':
-        var decimals = '100000000000000';
+        var decimals = '1000000000000000000';
 
       if (program.network == "kovan" )
       {

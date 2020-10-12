@@ -40,7 +40,7 @@ var tokensymbol = program.token;
 
   switch (program.token) {
     case 'DAI':
-        var decimals = '100000000000000';
+      var decimals = '1000000000000000000';
 
       if (program.network == "kovan" )
       {
@@ -159,7 +159,7 @@ console.log("🤖 💹 Starting YFRB Flashloan Arbitrage BOT ********" .cyan);
 // var yourpublicadress =ETHEREUM_WALLET_ADDRESS;
 // var accountprivatekey = PRIVATE_KEY;
 // var yourflashloancontractadress = FLASHLOAN_CONTRACT_ADDRESS;
-const AMOUNT_DAI = process.env.LOAN_AMTOUNT;
+const AMOUNT_DAI = process.env.LOAN_AMOUNT;
 
 
 var currentlyTrading= false;
