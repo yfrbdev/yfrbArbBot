@@ -35,6 +35,7 @@ program
   // .option('-a, --address <ETHAddress>', 'Ethereum Address', process.env.DEFAULT_ACCOUNT_TESTNET)
 program.parse(process.argv);
 
+
 var tokensymbol = program.token;
 
   switch (program.token) {
@@ -282,13 +283,14 @@ app.use(cors({credentials: true, origin: '*'}));
     // console.log("profit : "+ (profit * AMOUNT_DAI) - gaz)
          let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
 
+         
          if( realprofit > 0) {
 
          console.log("💰💰ESTIMATED PROFIT💰💰 : ".bgGreen + realprofit + " "+tokensymbol)
-            arbTrade(false,AMOUNT_DAI*decimals,txprice,gazcost);
+          arbTrade(false,AMOUNT_DAI,txprice,gazcost);
         
      
-        } else{
+        } else {
        console.log("😩😕NOT PROFITABLE: " .red  + profit * AMOUNT_DAI+" "+tokensymbol+"" .red )
       //  console.log("TRY adjusting the amount of DAI borrowed.")
       console.log("");
@@ -308,14 +310,14 @@ app.use(cors({credentials: true, origin: '*'}));
 
     let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
 
-     
+      
        
      if(realprofit > 0 ) {
 
       console.log("💰💰ESTIMATED PROFIT💰💰 : ".bgGreen + profit * AMOUNT_DAI+tokensymbol)
        
      
-       arbTrade(true,AMOUNT_DAI*decimals, txprice, gazcost);
+      arbTrade(true,AMOUNT_DAI, txprice, gazcost);
 
 
       } else {
@@ -352,6 +354,8 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
   }, 60000);
 
 
+  console.log(amount);
+
 //  console.log("starting arb trade. Cant execute another trade for 45 seconds")
 
 //var addr= '0xDAbC7a7C700F58bD6adCcA44954d2d3E7659005A';
@@ -367,9 +371,11 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
       // uniswap -> kyber 
     console.log("EXECUTING FLASHLOAN TRANSACTION -->" .red + " UNISWAP -> KYBER" .cyan)
     
-    flashloan.methods.flashloan(amount.toString()).send({
+    if(program.token == 'DAI'){
+
+          flashloan.methods.flashloan(amount.toString()).send({
             'from': ETHEREUM_WALLET_ADDRESS,
-           'gas': 3000000,
+           'gas': 2500000,
            'gasPrice':gasPrice,
           // value:web3k.utils.toWei("0.1", "ether") ,
         }, function(error, data){
@@ -379,25 +385,88 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
        //   console.log("check transaction at https://etherscan.io/tx/"+data)
         });
 
-    } else {
+    }else if(program.token == 'USDT'){
 
-      // console.log('DEBUG: daiAddress', daiAddress)
-      // kyber -> uniswap 
-      console.log("EXECUTING FLASHLOAN TRANSACTION -->" .red +" KYBER -> UNISWAP" .cyan)
-      flashloan.methods.flashloan2(amount.toString()).send({
-           'from': ETHEREUM_WALLET_ADDRESS,
-           'gas': 3000000,
+         flashloan.methods.flashloanusdt(amount.toString()).send({
+            'from': ETHEREUM_WALLET_ADDRESS,
+           'gas': 2500000,
            'gasPrice':gasPrice,
-     
           // value:web3k.utils.toWei("0.1", "ether") ,
         }, function(error, data){
-         // console.log(error);
-        console.log("Transaction ID: " .cyan + data)
-          // console.log("check transaction at "+process.env.ARB_TRADE_URL+data)
-        //  console.log("check transaction at https://etherscan.io/tx/"+data)
-          // console.log(data)
+          //console.log(error);
+          console.log(data)
+          console.log("Transaction ID: " .cyan + data)
+       //   console.log("check transaction at https://etherscan.io/tx/"+data)
         });
 
+    }else if(program.token == 'USDC'){
+
+         flashloan.methods.flashloanusdc(amount.toString()).send({
+            'from': ETHEREUM_WALLET_ADDRESS,
+           'gas': 2500000,
+           'gasPrice':gasPrice,
+          // value:web3k.utils.toWei("0.1", "ether") ,
+        }, function(error, data){
+          //console.log(error);
+          console.log(data)
+          console.log("Transaction ID: " .cyan + data)
+       //   console.log("check transaction at https://etherscan.io/tx/"+data)
+        });
+
+    }else{
+      null;
+    }
+
+
+
+
+    } else {
+
+        
+    if(program.token == 'DAI'){
+
+          flashloan.methods.flashloan2(amount.toString()).send({
+            'from': ETHEREUM_WALLET_ADDRESS,
+           'gas': 2500000,
+           'gasPrice':gasPrice,
+          // value:web3k.utils.toWei("0.1", "ether") ,
+        }, function(error, data){
+          //console.log(error);
+          console.log(data)
+          console.log("Transaction ID: " .cyan + data)
+       //   console.log("check transaction at https://etherscan.io/tx/"+data)
+        });
+
+    }else if(program.token == 'USDT'){
+
+         flashloan.methods.flashloanusdt2(amount.toString()).send({
+            'from': ETHEREUM_WALLET_ADDRESS,
+           'gas': 2500000,
+           'gasPrice':gasPrice,
+          // value:web3k.utils.toWei("0.1", "ether") ,
+        }, function(error, data){
+          //console.log(error);
+          console.log(data)
+          console.log("Transaction ID: " .cyan + data)
+       //   console.log("check transaction at https://etherscan.io/tx/"+data)
+        });
+
+    }else if(program.token == 'USDC'){
+
+         flashloan.methods.flashloanusdc2(amount.toString()).send({
+            'from': ETHEREUM_WALLET_ADDRESS,
+           'gas': 2500000,
+           'gasPrice':gasPrice,
+          // value:web3k.utils.toWei("0.1", "ether") ,
+        }, function(error, data){
+          //console.log(error);
+          console.log(data)
+          console.log("Transaction ID: " .cyan + data)
+       //   console.log("check transaction at https://etherscan.io/tx/"+data)
+        });
+
+    }else{
+      null;
     }
 
 }
