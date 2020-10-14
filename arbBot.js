@@ -356,9 +356,9 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
 
   console.log(amount);
 
-//  console.log("starting arb trade. Cant execute another trade for 45 seconds")
+ //  console.log("starting arb trade. Cant execute another trade for 45 seconds")
 
-//var addr= '0xDAbC7a7C700F58bD6adCcA44954d2d3E7659005A';
+ //var addr= '0xDAbC7a7C700F58bD6adCcA44954d2d3E7659005A';
 
     const account = web3.eth.accounts.privateKeyToAccount(PRIVATE_KEY);
     web3.eth.accounts.wallet.add(account);
@@ -469,4 +469,5 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
       null;
     }
 
+}
 }
