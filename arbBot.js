@@ -263,7 +263,7 @@ app.use(cors({credentials: true, origin: '*'}));
  console.log("ESTIMATED GAS PRICE  : " .magenta + gazcost + " WEI" .magenta);
  console.log("ESTIMATED TX PRICE : " .magenta + txprice   +" GWEI" .magenta);
  console.log("ESTIMATED GAS COST TOTAL : ".magenta  + gazeth +" ETH" .magenta);
- console.log("AAVE LENDING POOL FEE: ".magenta  + aavefee + tokensymbol+"" .magenta);
+ console.log("AAVE LENDING POOL FEE: ".magenta  + aavefee + " " + tokensymbol+"" .magenta);
  // console.log(web3.utils.fromWei(gazcost.toString(), 'ether'))
  
  console.log("KYBER "+tokensymbol+" PRICE = ".green + kyb/ decimals+  " ETH" +  "  <--|-->  " .cyan +  " UNISWAP "+tokensymbol+" PRICE = ".green +unis/ decimals + " ETH");
@@ -281,18 +281,18 @@ app.use(cors({credentials: true, origin: '*'}));
 
      const profit =  kyberdai - uniswapdai ;//(() * AMOUNT_DAI) - gaz ;
  
-    // console.log("profit : "+ (profit * AMOUNT_DAI) - gaz)
+     console.log("profit : "+ (profit * AMOUNT_DAI) - gaz)
          let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
-        console.log("ESTIMATED Real Profit", realprofit)
+        console.log("ESTIMATED Real Profit", realprofit + " " +  tokensymbol)
          
          if( realprofit > 0) {
 
-         console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " "+" ETH")
+         console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " " + tokensymbol)
          arbTrade(false,AMOUNT_DAI,txprice,gazcost);
         
      
         } else {
-       console.log("😩😕NOT PROFITABLE : " .red  + realprofit +" "+" ETH"+"" .red )
+       console.log("😩😕NOT PROFITABLE : " .red  + realprofit + " " + tokensymbol )
       //  console.log("TRY adjusting the amount of DAI borrowed.")
       // console.log("");
       // console.log("..........x.............x......x..........x.......x............ " .yellow );
@@ -313,13 +313,13 @@ app.use(cors({credentials: true, origin: '*'}));
 
 
     let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
-    console.log("ESTIMATED Real Profit", realprofit)
+    console.log("ESTIMATED Real Profit (iN DAI)", realprofit + " " +  tokensymbol)
       
        
      if(realprofit > 0 ) {
 
       // console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + profit * AMOUNT_DAI+tokensymbol)
-      console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " ETH" .red)
+      console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " " +  tokensymbol)
        
      
      arbTrade(true,AMOUNT_DAI, txprice, gazcost);
@@ -328,7 +328,7 @@ app.use(cors({credentials: true, origin: '*'}));
       } else {
 
       // console.log("😩😕NOT PROFITABLE: " .red  + profit * AMOUNT_DAI+ ""+" ETH"+" " .red)
-      console.log("😩😕NOT PROFITABLE: " .red  + realprofit + ""+" ETH"+" " .red)
+      console.log("😩😕NOT PROFITABLE: " .red  + realprofit + " " +  tokensymbol)
       //  console.log("TRY adjusting the amount of DAI borrowed.")
       // console.log("");
       // console.log("..........x.............x......x..........x.......x............ " .yellow );
