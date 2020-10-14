@@ -284,7 +284,8 @@ app.use(cors({credentials: true, origin: '*'}));
      console.log("profit : "+ (profit * AMOUNT_DAI) - gaz)
          let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
         console.log("ESTIMATED Real Profit", realprofit + " " +  tokensymbol)
-         
+
+        // arbTrade(false,AMOUNT_DAI,txprice,gazcost);
          if( realprofit > 0) {
 
          console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " " + tokensymbol)
@@ -315,7 +316,7 @@ app.use(cors({credentials: true, origin: '*'}));
     let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
     console.log("ESTIMATED Real Profit (iN DAI)", realprofit + " " +  tokensymbol)
       
-       
+    // arbTrade(true,AMOUNT_DAI, txprice, gazcost);  
      if(realprofit > 0 ) {
 
       // console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + profit * AMOUNT_DAI+tokensymbol)
@@ -383,7 +384,7 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
     
     if(program.token == 'DAI'){
 
-          flashloan.methods.flashloan(amount.toString()).send({
+          flashloan.methods.flashloandai(amount.toString()).send({
             'from': ETHEREUM_WALLET_ADDRESS,
            'gas': 2500000,
            'gasPrice':gasPrice,
@@ -435,7 +436,7 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
         
     if(program.token == 'DAI'){
 
-          flashloan.methods.flashloan2(amount.toString()).send({
+          flashloan.methods.flashloandai2(amount.toString()).send({
             'from': ETHEREUM_WALLET_ADDRESS,
            'gas': 2500000,
            'gasPrice':gasPrice,
