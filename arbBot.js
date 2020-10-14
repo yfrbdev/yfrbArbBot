@@ -228,6 +228,7 @@ app.use(cors({credentials: true, origin: '*'}));
 
   })
 
+
   // web3js.utils.toHex(gasPrices.high* 1e9);
 
   let gazcostGwei =  await _getGasPrice();
@@ -265,14 +266,14 @@ app.use(cors({credentials: true, origin: '*'}));
  console.log("AAVE LENDING POOL FEE: ".magenta  + aavefee + tokensymbol+"" .magenta);
  // console.log(web3.utils.fromWei(gazcost.toString(), 'ether'))
  
- console.log("KYBER "+tokensymbol+" PRICE = ".green +kyb/ decimals+ " <--|-->" .cyan +  " UNISWAP "+tokensymbol+" PRICE = ".green +unis/ decimals);
+ console.log("KYBER "+tokensymbol+" PRICE = ".green + kyb/ decimals+  " ETH" +  "  <--|-->  " .cyan +  " UNISWAP "+tokensymbol+" PRICE = ".green +unis/ decimals + " ETH");
  
 
 
      let uniswapdai = unis/ decimals;
      let kyberdai = kyb/ decimals;
 
-   console.log("KYBER "+tokensymbol+" AMOUNT = ".green + kyberdai * AMOUNT_DAI+ " <--|-->" .cyan +  " UNISWAP "+tokensymbol+" AMOUNT = ".green +uniswapdai* AMOUNT_DAI);
+   console.log("KYBER "+tokensymbol+" AMOUNT = ".green + kyberdai * AMOUNT_DAI+  " ETH" + "  <--|-->  " .cyan +  " UNISWAP "+tokensymbol+" AMOUNT = ".green +uniswapdai* AMOUNT_DAI + " ETH");
 
    if(kyb > unis){
     console.log('\n')
@@ -286,54 +287,63 @@ app.use(cors({credentials: true, origin: '*'}));
          
          if( realprofit > 0) {
 
-         console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " "+tokensymbol)
-      //    arbTrade(false,AMOUNT_DAI,txprice,gazcost);
+         console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " "+" ETH")
+         arbTrade(false,AMOUNT_DAI,txprice,gazcost);
         
      
         } else {
-       console.log("😩😕NOT PROFITABLE: " .red  + profit * AMOUNT_DAI+" "+tokensymbol+"" .red )
+       console.log("😩😕NOT PROFITABLE : " .red  + realprofit +" "+" ETH"+"" .red )
       //  console.log("TRY adjusting the amount of DAI borrowed.")
-      console.log("");
-      console.log("..........x.............x......x..........x.......x............ " .yellow );
-      console.log("........x.x.x........  LOGS END 1  .......x.x.x.x....x......... " .yellow );
-      console.log("");
-      console.log("");
+      // console.log("");
+      // console.log("..........x.............x......x..........x.......x............ " .yellow );
+      // console.log("........x.x.x........  LOGS END 1  .......x.x.x.x....x......... " .yellow );
+      // console.log("");
+      // console.log("");
         }
 
    } 
 
-    if(kyb < unis) {
-
+   if(kyb < unis) {
+    
     // console.log("Sell on uniswap > Buy on kyber")
     console.log("SELL PRICE ON UNISWAP" .green  + "  >  " .cyan + "BUY PRICE ON KYBER" .green);
     const profit =  uniswapdai - kyberdai;
+      //uniswapdai and kyberdai is in ETH
+
+
 
     let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
-
+    console.log("ESTIMATED Real Profit", realprofit)
       
        
      if(realprofit > 0 ) {
 
-      console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + profit * AMOUNT_DAI+tokensymbol)
+      // console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + profit * AMOUNT_DAI+tokensymbol)
+      console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " ETH" .red)
        
      
-   //   arbTrade(true,AMOUNT_DAI, txprice, gazcost);
+     arbTrade(true,AMOUNT_DAI, txprice, gazcost);
 
 
       } else {
 
-      console.log("😩😕NOT PROFITABLE: " .red  + profit * AMOUNT_DAI+ ""+tokensymbol+"" .red)
+      // console.log("😩😕NOT PROFITABLE: " .red  + profit * AMOUNT_DAI+ ""+" ETH"+" " .red)
+      console.log("😩😕NOT PROFITABLE: " .red  + realprofit + ""+" ETH"+" " .red)
       //  console.log("TRY adjusting the amount of DAI borrowed.")
-      console.log("");
-      console.log("..........x.............x......x..........x.......x............ " .yellow );
-      console.log("........x.x.x........  LOGS END 2  .......x.x.x.x....x......... " .yellow );
-      console.log("");
-      console.log("");
+      // console.log("");
+      // console.log("..........x.............x......x..........x.......x............ " .yellow );
+      // console.log("........x.x.x........  LOGS END 2  .......x.x.x.x....x......... " .yellow );
+      // console.log("");
+      // console.log("");
 
       }
 
    } 
-
+   console.log("");
+   console.log("..........x.............x......x..........x.......x............ " .yellow );
+   console.log("........x.x.x........  LOGS END   .......x.x.x.x....x......... " .yellow );
+   console.log("");
+   console.log("");
 }
 
 
