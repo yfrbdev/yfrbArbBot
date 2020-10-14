@@ -237,8 +237,8 @@ app.use(cors({credentials: true, origin: '*'}));
    let gazlimit = await web3.eth.getBlock("latest").gasLimit
   //
   
-  console.log("gazcostGwei: ", gazcostGwei)
-  console.log("gazcostWei: ", gazcost)
+  // console.log("gazcostGwei: ", gazcostGwei)
+  // console.log("gazcostWei: ", gazcost)
   // console.log("gaz limitt ", gazlimit)
     
 
@@ -251,7 +251,7 @@ app.use(cors({credentials: true, origin: '*'}));
 
  let gaz = txprice * gazcost;
 
- console.log("tx cost wei: "+gaz);
+//  console.log("tx cost wei: "+gaz);
 
  let gazeth = gaz /100000000000000000;
 
