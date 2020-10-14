@@ -179,7 +179,7 @@ app.use(cors({credentials: true, origin: '*'}));
  async function  getPrices(){
 
 
-  console.log("token : "+tokensymbol);
+
 
 
   _getGasPrice = async () => {
@@ -205,6 +205,7 @@ app.use(cors({credentials: true, origin: '*'}));
   console.log("..........x.............x......x..........x.......x............ " .yellow );
   console.log("...................  LOGS START   ........................ " .yellow );
   console.log("");
+  console.log("TOKEN : ETH-"+tokensymbol);
   contractAddr = oracle;
   // const privateKey = accountprivatekey;
   const account = web3.eth.accounts.privateKeyToAccount(PRIVATE_KEY); 
@@ -215,7 +216,7 @@ app.use(cors({credentials: true, origin: '*'}));
     'from': from
   },function(error, data){
     console.log("UNISWAP  ETH/"+tokensymbol+"PRICE: " .green +" 1 "+tokensymbol+" = "  +data/ decimals  +" ETH" );
-    return data / 100000000000000;
+    return data / decimals;
   })
 
   var kyb = await orContract.methods.getExchangeRate(tokensymbol, 'ETH', 'SELL-KYBER-EXCHANGE', decimals).call({
@@ -237,7 +238,7 @@ app.use(cors({credentials: true, origin: '*'}));
   
   console.log("gazcostGwei: ", gazcostGwei)
   console.log("gazcostWei: ", gazcost)
-  console.log("gaz limitt "+gazlimit)
+  // console.log("gaz limitt ", gazlimit)
     
 
 
@@ -253,7 +254,7 @@ app.use(cors({credentials: true, origin: '*'}));
 
  let gazeth = gaz /100000000000000000;
 
- let aavefee = AMOUNT_DAI *0.0009
+ let aavefee = AMOUNT_DAI * 0.0009
 
  console.log("cost eth: "+gazeth);
 
@@ -264,15 +265,14 @@ app.use(cors({credentials: true, origin: '*'}));
  console.log("AAVE LENDING POOL FEE: ".magenta  + aavefee + tokensymbol+"" .magenta);
  // console.log(web3.utils.fromWei(gazcost.toString(), 'ether'))
  
- console.log("KYBER "+tokensymbol+" PRICE = ".green +kyb/ 100000000000000+ " <--|-->" .cyan +  " UNISWAP "+tokensymbol+"PRICE = ".green +unis/ 100000000000000);
+ console.log("KYBER "+tokensymbol+" PRICE = ".green +kyb/ decimals+ " <--|-->" .cyan +  " UNISWAP "+tokensymbol+" PRICE = ".green +unis/ decimals);
  
 
 
-     let uniswapdai = unis/ 100000000000000;
-     let kyberdai = kyb/ 100000000000000;
+     let uniswapdai = unis/ decimals;
+     let kyberdai = kyb/ decimals;
 
-   console.log("KYBER "+tokensymbol+" AMOUNT = ".green +kyberdai * AMOUNT_DAI+ " <--|-->" .cyan +  " UNISWAP"+tokensymbol+" AMOUNT = ".green +uniswapdai* AMOUNT_DAI);
-
+   console.log("KYBER "+tokensymbol+" AMOUNT = ".green + kyberdai * AMOUNT_DAI+ " <--|-->" .cyan +  " UNISWAP "+tokensymbol+" AMOUNT = ".green +uniswapdai* AMOUNT_DAI);
 
    if(kyb > unis){
     console.log('\n')
@@ -282,12 +282,12 @@ app.use(cors({credentials: true, origin: '*'}));
  
     // console.log("profit : "+ (profit * AMOUNT_DAI) - gaz)
          let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
-
+        console.log("ESTIMATED Real Profit", realprofit)
          
          if( realprofit > 0) {
 
-         console.log("💰💰ESTIMATED PROFIT💰💰 : ".bgGreen + realprofit + " "+tokensymbol)
-          arbTrade(false,AMOUNT_DAI,txprice,gazcost);
+         console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " "+tokensymbol)
+      //    arbTrade(false,AMOUNT_DAI,txprice,gazcost);
         
      
         } else {
@@ -314,10 +314,10 @@ app.use(cors({credentials: true, origin: '*'}));
        
      if(realprofit > 0 ) {
 
-      console.log("💰💰ESTIMATED PROFIT💰💰 : ".bgGreen + profit * AMOUNT_DAI+tokensymbol)
+      console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + profit * AMOUNT_DAI+tokensymbol)
        
      
-      arbTrade(true,AMOUNT_DAI, txprice, gazcost);
+   //   arbTrade(true,AMOUNT_DAI, txprice, gazcost);
 
 
       } else {
@@ -339,7 +339,7 @@ app.use(cors({credentials: true, origin: '*'}));
 
 function arbTrade(direction,amount,gasLimit,gasPrice){
 
-  console.log("PROFIT OPPORTUNITY FOUND !!" .bgWhite + "Executing trade using flashloan with "+amount+" borrowed "+tokensymbol+" 💰💰")
+  console.log("PROFIT OPPORTUNITY FOUND !!" .green + "Executing trade using flashloan with "+amount+" borrowed "+tokensymbol+" 💰💰")
 
  var flashloan = new web3.eth.Contract(flashloanabi.abi,FLASHLOAN_CONTRACT_ADDRESS);
 
