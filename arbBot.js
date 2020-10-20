@@ -34,14 +34,15 @@ program
   .requiredOption('-t,  --token <tokenSymbol>', 'Token symbol (DAI/USDT/USDC)') 
   // .option('-a, --address <ETHAddress>', 'Ethereum Address', process.env.DEFAULT_ACCOUNT_TESTNET)
 program.parse(process.argv);
-
+let AMOUNT_DAI;
 
 var tokensymbol = program.token;
 
   switch (program.token) {
+    
     case 'DAI':
         var decimals = 1000000000000000000;
-        const AMOUNT_DAI = process.env.LOAN_AMOUNT;
+       AMOUNT_DAI = process.env.LOAN_AMOUNT;
       if (program.network == "kovan" )
       {
           var tokenAddress = addresses.tokens.daiKovan;
@@ -56,7 +57,8 @@ var tokensymbol = program.token;
 
     case 'USDT':
          var decimals = 100;
-         const AMOUNT_DAI = process.env.LOAN_AMOUNT * 1000000;
+         AMOUNT_DAI = process.env.LOAN_AMOUNT * 1000000;
+
          //kovan
          if (program.network == "kovan" )
          {
@@ -73,7 +75,7 @@ var tokensymbol = program.token;
     case 'USDC':
 
           var decimals = 100;
-          const AMOUNT_DAI = process.env.LOAN_AMOUNT * 1000000;
+          AMOUNT_DAI = process.env.LOAN_AMOUNT * 1000000;
           if (program.network == "kovan" )
           {
               var tokenAddress = '0x13512979ADE267AB5100878E2e0f485B568328a4'; 
@@ -288,7 +290,7 @@ app.use(cors({credentials: true, origin: '*'}));
          let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
         console.log("ESTIMATED Real Profit", realprofit + " " +  tokensymbol)
 
-        arbTrade(false,AMOUNT_DAI,txprice,gazcost);
+        // arbTrade(false,AMOUNT_DAI,txprice,gazcost);
          if( realprofit > 0) {
 
          console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " " + tokensymbol)
@@ -319,7 +321,7 @@ app.use(cors({credentials: true, origin: '*'}));
     let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
     console.log("ESTIMATED Real Profit (iN DAI)", realprofit + " " +  tokensymbol)
       
-      arbTrade(true,AMOUNT_DAI, txprice, gazcost);  
+      // arbTrade(true,AMOUNT_DAI, txprice, gazcost);  
      if(realprofit > 0 ) {
 
       // console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + profit * AMOUNT_DAI+tokensymbol)
