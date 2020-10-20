@@ -41,7 +41,7 @@ var tokensymbol = program.token;
   switch (program.token) {
     case 'DAI':
         var decimals = 1000000000000000000;
-
+        const AMOUNT_DAI = process.env.LOAN_AMOUNT;
       if (program.network == "kovan" )
       {
           var tokenAddress = addresses.tokens.daiKovan;
@@ -56,7 +56,7 @@ var tokensymbol = program.token;
 
     case 'USDT':
          var decimals = 100;
-
+         const AMOUNT_DAI = process.env.LOAN_AMOUNT * 1000000;
          //kovan
          if (program.network == "kovan" )
          {
@@ -73,6 +73,7 @@ var tokensymbol = program.token;
     case 'USDC':
 
           var decimals = 100;
+          const AMOUNT_DAI = process.env.LOAN_AMOUNT * 1000000;
           if (program.network == "kovan" )
           {
               var tokenAddress = '0x13512979ADE267AB5100878E2e0f485B568328a4'; 
@@ -159,7 +160,7 @@ console.log("🤖 💹 Starting YFRB Flashloan Arbitrage BOT ********" .cyan);
 // var yourpublicadress =ETHEREUM_WALLET_ADDRESS;
 // var accountprivatekey = PRIVATE_KEY;
 // var yourflashloancontractadress = FLASHLOAN_CONTRACT_ADDRESS;
-const AMOUNT_DAI = process.env.LOAN_AMOUNT;
+//const AMOUNT_DAI = process.env.LOAN_AMOUNT;
 
 
 var currentlyTrading= false;
@@ -216,7 +217,7 @@ app.use(cors({credentials: true, origin: '*'}));
    var unis = await orContract.methods.getExchangeRate(tokensymbol, 'ETH', 'UNISWAPBYSYMBOLV2', web3or.utils.toBN(decimals)).call({
     'from': from
   },function(error, data){
-    console.log("UNISWAP  ETH/"+tokensymbol+"PRICE: " .green +" 1 "+tokensymbol+" = "  +data/ decimals  +" ETH" );
+    console.log("UNISWAP  ETH/"+tokensymbol+" PRICE: " .green +" 1 "+tokensymbol+" = "  +data/ decimals  +" ETH" );
     return data / decimals;
   })
 
@@ -287,7 +288,7 @@ app.use(cors({credentials: true, origin: '*'}));
          let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
         console.log("ESTIMATED Real Profit", realprofit + " " +  tokensymbol)
 
-        // arbTrade(false,AMOUNT_DAI,txprice,gazcost);
+        arbTrade(false,AMOUNT_DAI,txprice,gazcost);
          if( realprofit > 0) {
 
          console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " " + tokensymbol)
@@ -318,7 +319,7 @@ app.use(cors({credentials: true, origin: '*'}));
     let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
     console.log("ESTIMATED Real Profit (iN DAI)", realprofit + " " +  tokensymbol)
       
-    // arbTrade(true,AMOUNT_DAI, txprice, gazcost);  
+      arbTrade(true,AMOUNT_DAI, txprice, gazcost);  
      if(realprofit > 0 ) {
 
       // console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + profit * AMOUNT_DAI+tokensymbol)
