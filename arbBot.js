@@ -43,7 +43,8 @@ program.parse(process.argv);
 
 
 var tokensymbol = program.token;
-let AMOUNT;
+
+var  AMOUNT;
 
   switch (program.token) {
     case 'DAI':
@@ -63,7 +64,10 @@ let AMOUNT;
 
      AMOUNT = process.env.LOAN_AMOUNT;
 
-     
+
+  
+
+      
        break;
 
 
@@ -84,7 +88,7 @@ let AMOUNT;
           var tokenAddress = addresses.tokens.usdt; 
         }
          
-       AMOUNT = process.env.LOAN_AMOUNT * 1000000;
+        AMOUNT = process.env.LOAN_AMOUNT * 1000000;
 
 
          
@@ -381,11 +385,10 @@ app.use(cors({credentials: true, origin: '*'}));
  // console.log(web3.utils.fromWei(gazcost.toString(), 'ether'))
  
  console.log("KYBER "+tokensymbol+" PRICE = ".green + kyb+  "ETH"  +  "  <--|-->  " .cyan +  " UNISWAP "+tokensymbol+" PRICE = ".green +unis/decimals + "ETH" );
- 
-
 
      let uniswapdai = unis/decimals;
      let kyberdai = kyb;
+
 
    console.log("KYBER "+tokensymbol+" AMOUNT = ".green + kyberdai * AMOUNT_DAI+  "ETH" + "  <--|-->  " .cyan +  " UNISWAP "+tokensymbol+" AMOUNT = ".green +uniswapdai* AMOUNT_DAI+"ETH" );
 
@@ -404,16 +407,16 @@ app.use(cors({credentials: true, origin: '*'}));
         
          if( realprofit > 0) {
 
-         console.log("ESTIMATED Real Profit", realprofit + " " +  tokensymbol)
+         console.log("ESTIMATED Real Profit", realprofit / kyberdai   + " " +  tokensymbol)
 
-           arbTrade(false,AMOUNT,txprice,gazcost);
+          arbTrade(false,AMOUNT,txprice,gazcost);
         
 
-         console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " " + "ETH")
+         console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit / kyberdai + " " + tokensymbol)
         
      
         } else {
-       console.log("😩😕NOT PROFITABLE : " .red  + realprofit +" ETH" )
+       console.log("😩😕NOT PROFITABLE : " .red  + realprofit +"" )
       //  console.log("TRY adjusting the amount of DAI borrowed.")
       // console.log("");
       // console.log("..........x.............x......x..........x.......x............ " .yellow );
@@ -434,15 +437,16 @@ app.use(cors({credentials: true, origin: '*'}));
 
 
     let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
-    console.log("ESTIMATED Real Profit (iN DAI)", realprofit + " " +  " ETH" )
+
+    console.log(`ESTIMATED Real Profit (iN ${tokensymbol})`, realprofit  / uniswapdai + " " + tokensymbol )
         
     // arbTrade(true,AMOUNT_DAI, txprice, gazcost);  
      if(realprofit > 0 ) {
 
       // console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + profit * AMOUNT_DAI+tokensymbol)
-      console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit + " " +  " ETH" )
+      console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit / uniswapdai+ " " +  tokensymbol )
 
-       arbTrade(true,AMOUNT, txprice, gazcost);
+      arbTrade(true,AMOUNT, txprice, gazcost);
 
 
       } else {
@@ -535,7 +539,7 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
        //   console.log("check transaction at https://etherscan.io/tx/"+data)
         });
 
-    }else if(program.token == 'USDC'){
+    } else if(program.token == 'USDC'){
 
          flashloan.methods.flashloanusdc(amount.toString()).send({
             'from': ETHEREUM_WALLET_ADDRESS,
