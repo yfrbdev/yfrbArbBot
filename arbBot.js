@@ -440,7 +440,7 @@ app.use(cors({credentials: true, origin: '*'}));
 
     console.log(`ESTIMATED Real Profit (iN ${tokensymbol})`, realprofit  / uniswapdai + " " + tokensymbol )
         
-    arbTrade(true,AMOUNT_DAI, txprice, gazcost);  
+    // arbTrade(true,AMOUNT_DAI, txprice, gazcost);  
      if(realprofit > 0 ) {
 
       // console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + profit * AMOUNT_DAI+tokensymbol)
