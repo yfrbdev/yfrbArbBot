@@ -403,7 +403,7 @@ app.use(cors({credentials: true, origin: '*'}));
          let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
          
          
-         arbTrade(true,AMOUNT_DAI,txprice,gazcost);
+        //  arbTrade(true,AMOUNT_DAI,txprice,gazcost);
         
          if( realprofit > 0) {
 
