@@ -403,20 +403,20 @@ app.use(cors({credentials: true, origin: '*'}));
          let realprofit = (profit * AMOUNT_DAI) - (gazeth + aavefee);
          
          
-        // arbTrade(false,AMOUNT_DAI,txprice,gazcost);
+         arbTrade(true,AMOUNT_DAI,txprice,gazcost);
         
          if( realprofit > 0) {
 
          console.log("ESTIMATED Real Profit", realprofit / kyberdai   + " " +  tokensymbol)
 
-          arbTrade(false,AMOUNT,txprice,gazcost);
+          arbTrade(true,AMOUNT,txprice,gazcost);
         
 
          console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + realprofit / kyberdai + " " + tokensymbol)
         
      
         } else {
-       console.log("😩😕NOT PROFITABLE : " .red  + realprofit +"" )
+       console.log("😩😕NOT PROFITABLE : " .red  + realprofit/ kyberdai +"" )
       //  console.log("TRY adjusting the amount of DAI borrowed.")
       // console.log("");
       // console.log("..........x.............x......x..........x.......x............ " .yellow );
@@ -440,7 +440,7 @@ app.use(cors({credentials: true, origin: '*'}));
 
     console.log(`ESTIMATED Real Profit (iN ${tokensymbol})`, realprofit  / uniswapdai + " " + tokensymbol )
         
-    // arbTrade(true,AMOUNT_DAI, txprice, gazcost);  
+    arbTrade(true,AMOUNT_DAI, txprice, gazcost);  
      if(realprofit > 0 ) {
 
       // console.log("💰💰ESTIMATED PROFIT💰💰 : ".green + profit * AMOUNT_DAI+tokensymbol)
@@ -452,7 +452,7 @@ app.use(cors({credentials: true, origin: '*'}));
       } else {
 
       // console.log("😩😕NOT PROFITABLE: " .red  + profit * AMOUNT_DAI+ ""+" ETH"+" " .red)
-      console.log("😩😕NOT PROFITABLE: " .red  + realprofit + " " +  " ETH" )
+      console.log("😩😕NOT PROFITABLE: " .red  + realprofit / uniswapdai + " " +   tokensymbol )
       //  console.log("TRY adjusting the amount of DAI borrowed.")
       // console.log("");
       // console.log("..........x.............x......x..........x.......x............ " .yellow );
@@ -530,7 +530,7 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
          flashloan.methods.flashloanusdt(amount.toString()).send({
             'from': ETHEREUM_WALLET_ADDRESS,
            'gas': 2500000,
-           'gasPrice':gasPrice,
+         //  'gasPrice':gasPrice,
           // value:web3k.utils.toWei("0.1", "ether") ,
         }, function(error, data){
           //console.log(error);
@@ -544,7 +544,7 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
          flashloan.methods.flashloanusdc(amount.toString()).send({
             'from': ETHEREUM_WALLET_ADDRESS,
            'gas': 2500000,
-           'gasPrice':gasPrice,
+           //'gasPrice':gasPrice,
           // value:web3k.utils.toWei("0.1", "ether") ,
         }, function(error, data){
           //console.log(error);
@@ -569,7 +569,7 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
           flashloan.methods.flashloandai2(amount.toString()).send({
             'from': ETHEREUM_WALLET_ADDRESS,
            'gas': 2500000,
-           'gasPrice':gasPrice,
+         //  'gasPrice':gasPrice,
           // value:web3k.utils.toWei("0.1", "ether") ,
         }, function(error, data){
           //console.log(error);
@@ -583,7 +583,7 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
          flashloan.methods.flashloanusdt2(amount.toString()).send({
             'from': ETHEREUM_WALLET_ADDRESS,
            'gas': 2500000,
-           'gasPrice':gasPrice,
+         //  'gasPrice':gasPrice,
           // value:web3k.utils.toWei("0.1", "ether") ,
         }, function(error, data){
           //console.log(error);
@@ -597,7 +597,7 @@ function arbTrade(direction,amount,gasLimit,gasPrice){
          flashloan.methods.flashloanusdc2(amount.toString()).send({
             'from': ETHEREUM_WALLET_ADDRESS,
            'gas': 2500000,
-           'gasPrice':gasPrice,
+          // 'gasPrice':gasPrice,
           // value:web3k.utils.toWei("0.1", "ether") ,
         }, function(error, data){
           //console.log(error);
